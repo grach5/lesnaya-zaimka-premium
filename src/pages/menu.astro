@@ -15,7 +15,7 @@ const highlight = [
 
 <Layout
   title="Меню — Лесная Заимка"
-  description="Полное меню ресторана «Лесная Заимка»: 13 разделов, русская, охотничья, дальневосточная и кавказская кухня, дичь и блюда у огня."
+  description="Полное меню ресторана «Лесная Заимка»: 13 разделов, русская, охотничья, дальневосточная и кавказская кухня, блюда тандыра и мангала, дичь и банкетный стол."
 >
   <section class="relative flex h-[56vh] min-h-[420px] items-end overflow-hidden bg-obsidian">
     <img src={withBase("/img/gallery/kitchen/full/6.webp")} alt="Блюда «Лесной Заимки»" class="ken-burns absolute inset-0 h-full w-full object-cover opacity-60" />
@@ -24,15 +24,15 @@ const highlight = [
       <p class="eyebrow mb-5" data-reveal>Стол</p>
       <h1 class="font-display text-5xl font-light text-ivory md:text-7xl" data-reveal>Меню</h1>
       <p class="mt-5 max-w-md text-sm text-ivory-dim" data-reveal data-reveal-delay="1">
-        13 разделов на одном огне — от холодных закусок до банкетного стола.
+        13 разделов классического меню — от холодных закусок до банкетного стола.
       </p>
     </div>
   </section>
 
-  <!-- HIGHLIGHT: у огня -->
+  <!-- HIGHLIGHT: фирменное -->
   <section class="border-b border-obsidian-line bg-obsidian-soft px-6 py-20 md:px-10">
     <div class="mx-auto max-w-[1400px]">
-      <p class="eyebrow mb-10" data-reveal>Показательное — у огня</p>
+      <p class="eyebrow mb-10" data-reveal>Фирменные блюда</p>
       <div class="grid gap-px overflow-hidden bg-obsidian-line sm:grid-cols-2 lg:grid-cols-4">
         {highlight.map((item, i) => (
           <div class="bg-obsidian-soft p-8" data-reveal data-reveal-delay={String(i % 4)}>
