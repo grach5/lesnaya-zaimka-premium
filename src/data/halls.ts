@@ -4,49 +4,61 @@ export type Hall = {
   capacity: string;
   area?: string;
   image: string;
+  /** false = фото не подписано на официальном сайте как этот зал, используется как лучшая доступная замена */
+  verifiedPhoto?: boolean;
 };
 
+// Привязка фото проверена на lesnaya-zaimka-vl.ru/ru/gallery/interiors/ — там подписи
+// над каждой фотографией напрямую называют зал (Большой/Фиолетовый/Изумрудный/Банкетный/Бар).
+// Для Бордового зала и Летней террасы подписанных фото на официальном сайте нет вообще —
+// image ниже лучшая доступная замена, а не подтверждённый снимок именно этого зала.
 export const HALLS: Hall[] = [
   {
     name: "Большой зал",
     description: "Основной зал, 1-й этаж, сцена, танцпол, проектор.",
     capacity: "200–250 чел",
     area: "400 м²",
-    image: "/img/gallery/holidays/full/1.webp",
+    image: "/img/gallery/interiors/full/10.webp",
+    verifiedPhoto: true,
   },
   {
     name: "Летняя терраса",
-    description: "Открытая терраса в два этажа — для больших торжеств и мероприятий на свежем воздухе.",
-    capacity: "до 500 чел",
+    description: "Открытая терраса Villa ArtE в два этажа — для больших торжеств и мероприятий на свежем воздухе.",
+    capacity: "до 400 чел",
     image: "/img/gallery/holidays/full/2.webp",
+    verifiedPhoto: false,
   },
   {
     name: "Фиолетовый зал",
     description: "Нижний этаж, отдельный выход на улицу, проектор.",
-    capacity: "80–100 чел",
+    capacity: "до 90 чел",
     area: "180 м²",
-    image: "/img/gallery/corporate/full/1.webp",
+    image: "/img/gallery/interiors/full/1.webp",
+    verifiedPhoto: true,
   },
   {
     name: "Бордовый зал",
     description: "3-й этаж, ЖК-экран — для торжеств камернее.",
     capacity: "до 40 чел",
     area: "70 м²",
-    image: "/img/gallery/wedding/full/1.webp",
+    image: "/img/gallery/interiors/full/3.webp",
+    verifiedPhoto: false,
   },
   {
     name: "Изумрудный зал",
     description: "2-й этаж, ЖК-экран.",
-    capacity: "до 35 чел",
+    capacity: "до 40 чел",
     area: "70 м²",
-    image: "/img/gallery/corporate/full/2.webp",
+    image: "/img/gallery/interiors/full/2.webp",
+    verifiedPhoto: true,
   },
   {
     name: "Банкетный зал",
     description: "2-й этаж, ЖК-экран — самый камерный из шести.",
-    capacity: "до 30 чел",
+    capacity: "до 35 чел",
     area: "60 м²",
-    image: "/img/gallery/wedding/full/2.webp",
+    image: "/img/gallery/interiors/full/6.webp",
+    verifiedPhoto: true,
   },
 ];
 
