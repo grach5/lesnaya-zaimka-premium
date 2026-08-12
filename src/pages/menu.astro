@@ -1,0 +1,81 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Icon from "@/components/Icon.astro";
+import { ZAIMKA_MENU } from "@/data/menu";
+import { CONTACTS } from "@/data/contacts";
+import { withBase } from "@/lib/url";
+
+const gameCategory = ZAIMKA_MENU.categories.find((c) => c.name.includes("дич"));
+const banquetCategory = ZAIMKA_MENU.categories.find((c) => c.name.includes("Банкет"));
+const highlight = [
+  ...(gameCategory?.items.slice(0, 2) ?? []),
+  ...(banquetCategory?.items.filter((i) => i.name.includes("Ягнёнок") || i.name.includes("Поросёнок")) ?? []),
+];
+---
+
+<Layout
+  title="Меню — Лесная Заимка"
+  description="Полное меню ресторана «Лесная Заимка»: 13 разделов, русская, охотничья, дальневосточная и кавказская кухня, дичь и блюда у огня."
+>
+  <section class="relative flex h-[56vh] min-h-[420px] items-end overflow-hidden bg-obsidian">
+    <img src={withBase("/img/gallery/kitchen/full/6.webp")} alt="Блюда «Лесной Заимки»" class="ken-burns absolute inset-0 h-full w-full object-cover opacity-60" />
+    <div class="pointer-events-none absolute inset-0" style="background: linear-gradient(to top, rgba(10,9,8,1) 0%, rgba(10,9,8,0.5) 60%, rgba(10,9,8,0.55) 100%);"></div>
+    <div class="relative z-10 mx-auto w-full max-w-[1400px] px-6 pb-16 md:px-10">
+      <p class="eyebrow mb-5" data-reveal>Стол</p>
+      <h1 class="font-display text-5xl font-light text-ivory md:text-7xl" data-reveal>Меню</h1>
+      <p class="mt-5 max-w-md text-sm text-ivory-dim" data-reveal data-reveal-delay="1">
+        13 разделов на одном огне — от холодных закусок до банкетного стола.
+      </p>
+    </div>
+  </section>
+
+  <!-- HIGHLIGHT: у огня -->
+  <section class="border-b border-obsidian-line bg-obsidian-soft px-6 py-20 md:px-10">
+    <div class="mx-auto max-w-[1400px]">
+      <p class="eyebrow mb-10" data-reveal>Показательное — у огня</p>
+      <div class="grid gap-px overflow-hidden bg-obsidian-line sm:grid-cols-2 lg:grid-cols-4">
+        {highlight.map((item, i) => (
+          <div class="bg-obsidian-soft p-8" data-reveal data-reveal-delay={String(i % 4)}>
+            <p class="font-display text-xl leading-snug text-ivory">{item.name}</p>
+            <p class="mt-5 font-mono text-sm text-brass">{item.price.toLocaleString("ru-RU")} ₽</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FULL MENU -->
+  <section class="bg-obsidian px-6 py-24 md:px-10">
+    <div class="mx-auto max-w-[1000px]">
+      {ZAIMKA_MENU.categories.map((category, ci) => (
+        <div class="border-b border-obsidian-line py-14 first:pt-0" data-reveal>
+          <div class="mb-8 flex items-baseline justify-between gap-6">
+            <h2 class="font-display text-3xl font-light text-ivory md:text-4xl">{category.name}</h2>
+            <span class="eyebrow shrink-0 text-ivory-dim">{String(ci + 1).padStart(2, "0")} / {String(ZAIMKA_MENU.categories.length).padStart(2, "0")}</span>
+          </div>
+          <ul class="grid gap-x-10 gap-y-4 sm:grid-cols-2">
+            {category.items.map((item) => (
+              <li class="flex items-baseline justify-between gap-4 border-b border-obsidian-line/60 pb-3">
+                <span class="text-sm text-ivory-dim">{item.name}</span>
+                <span class="shrink-0 font-mono text-sm text-brass">{item.price.toLocaleString("ru-RU")} ₽</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="border-t border-obsidian-line bg-obsidian-soft px-6 py-24 text-center md:px-10">
+    <p class="eyebrow mb-6" data-reveal>Стол готов</p>
+    <h2 class="font-display mb-10 text-4xl font-light text-ivory md:text-5xl" data-reveal>Забронируйте столик</h2>
+    <div class="flex flex-wrap items-center justify-center gap-5" data-reveal data-reveal-delay="1">
+      <a href={CONTACTS.phoneTableHref} class="btn-brass">
+        <Icon name="phone" class="h-3.5 w-3.5" />
+        <span>{CONTACTS.phoneTable}</span>
+      </a>
+      <a href={withBase("/kontakty/")} class="btn-outline"><span>Форма брони</span></a>
+    </div>
+  </section>
+</Layout>

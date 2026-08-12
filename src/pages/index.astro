@@ -1,0 +1,223 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Icon from "@/components/Icon.astro";
+import LivingPhotograph from "@/components/LivingPhotograph.tsx";
+import { HISTORY, OWNER_QUOTE, GUEST_QUOTES } from "@/data/history";
+import { ZAIMKA_MENU } from "@/data/menu";
+import { CONTACTS } from "@/data/contacts";
+import { withBase } from "@/lib/url";
+
+const y1974 = HISTORY[0];
+
+const gameCategory = ZAIMKA_MENU.categories.find((c) => c.name.includes("дич"));
+const signatureDishes = (gameCategory?.items ?? []).slice(0, 4);
+---
+
+<Layout
+  title="Лесная Заимка — ресторанный комплекс во Владивостоке с 1974 года"
+  description="«Лесная Заимка»: терем 1974 года, огонь тандыра и мангала, русская, охотничья, дальневосточная и кавказская кухня, своя ферма, шесть залов до 500 гостей."
+>
+  <!-- HERO -->
+  <section class="relative flex h-[100svh] min-h-[640px] w-full items-end overflow-hidden bg-obsidian" data-hero-anim>
+    <video
+      class="ken-burns absolute inset-0 h-full w-full object-cover opacity-70"
+      poster={withBase("/img/hero-video-poster.webp")}
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+    >
+      <source src={withBase("/video/rolik.mp4")} type="video/mp4" />
+    </video>
+    <div
+      class="pointer-events-none absolute inset-0"
+      style="background: linear-gradient(to top, rgba(10,9,8,0.98) 0%, rgba(10,9,8,0.55) 45%, rgba(10,9,8,0.35) 70%, rgba(10,9,8,0.6) 100%);"
+    ></div>
+
+    <div class="relative z-10 mx-auto w-full max-w-[1400px] px-6 pb-16 md:px-10 md:pb-24">
+      <p class="eyebrow mb-6" data-hero-eyebrow>Ресторанный комплекс · Владивосток · с 1974 года</p>
+      <h1 class="font-display max-w-4xl text-[13vw] font-light leading-[0.95] text-ivory sm:text-6xl md:text-7xl lg:text-8xl">
+        <span class="hero-line"><span>Огонь, который</span></span>
+        <span class="hero-line"><span class="text-brass italic">не гас</span> полвека</span>
+      </h1>
+      <div class="mt-10 flex flex-wrap items-center gap-5" data-hero-cta>
+        <a href={withBase("/kontakty/")} class="btn-brass"><span>Забронировать столик</span><Icon name="arrow" class="h-3.5 w-3.5" /></a>
+        <a href={withBase("/menu/")} class="btn-outline"><span>Смотреть меню</span></a>
+      </div>
+    </div>
+
+    <div class="absolute bottom-8 right-6 z-10 hidden text-right font-mono text-xs text-ivory-dim md:right-10 md:block" data-hero-meta>
+      <p>{CONTACTS.hours}</p>
+      <p class="mt-1">{CONTACTS.address}</p>
+    </div>
+  </section>
+
+  <script>
+    import gsap from "gsap";
+
+    const hero = document.querySelector<HTMLElement>("[data-hero-anim]");
+    if (hero) {
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const eyebrow = hero.querySelector<HTMLElement>("[data-hero-eyebrow]");
+      const lines = hero.querySelectorAll<HTMLElement>(".hero-line > span");
+      const cta = hero.querySelector<HTMLElement>("[data-hero-cta]");
+      const meta = hero.querySelector<HTMLElement>("[data-hero-meta]");
+      const targets = [eyebrow, ...Array.from(lines), cta, meta].filter(
+        (el): el is HTMLElement => el !== null
+      );
+
+      if (reduced) {
+        gsap.set(targets, { opacity: 1, clearProps: "transform" });
+      } else {
+        const tl = gsap.timeline({ delay: 0.15 });
+        if (eyebrow) tl.to(eyebrow, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 0);
+        tl.to(lines, { opacity: 1, y: "0%", duration: 1.15, ease: "expo.out", stagger: 0.14 }, 0.18);
+        if (cta) tl.to(cta, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, "-=0.55");
+        if (meta) tl.to(meta, { opacity: 1, y: 0, duration: 0.9, ease: "power1.out" }, "-=0.5");
+      }
+    }
+  </script>
+
+  <!-- THESIS -->
+  <section class="border-b border-obsidian-line bg-obsidian px-6 py-28 md:px-10">
+    <div class="mx-auto grid max-w-[1400px] gap-12 md:grid-cols-[0.9fr_1.4fr]">
+      <p class="eyebrow" data-reveal>О заимке</p>
+      <p class="font-display text-2xl font-light leading-snug text-ivory md:text-4xl" data-reveal>
+        Терем построили в {y1974.year} году к приёму глав двух держав — с тех пор здесь не меняли ни хозяев огня,
+        ни его смысл: тандыр, мангал и чугун каждый вечер собирают гостей в один круг за одним столом.
+        <span class="text-ivory-dim"> Русская, охотничья, дальневосточная и кавказская кухня — потому что один огонь умеет готовить всё.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- FIRE / SIGNATURE DISHES -->
+  <section class="relative bg-obsidian px-6 py-28 md:px-10">
+    <div class="mx-auto max-w-[1400px]">
+      <div class="mb-14 flex flex-wrap items-end justify-between gap-6">
+        <div data-reveal>
+          <p class="eyebrow mb-4">Огонь</p>
+          <h2 class="font-display text-4xl font-light text-ivory md:text-5xl">Что держит пламя</h2>
+        </div>
+        <a href={withBase("/menu/")} class="btn-outline shrink-0" data-reveal>
+          <span>Полное меню</span>
+          <Icon name="arrow" class="h-3.5 w-3.5" />
+        </a>
+      </div>
+
+      <div class="grid gap-px overflow-hidden bg-obsidian-line md:grid-cols-2">
+        <div class="img-zoom relative aspect-[4/3] bg-obsidian" data-reveal>
+          <img src={withBase("/img/gallery/kitchen/full/2.webp")} alt="Огонь тандыра и мангала" class="h-full w-full object-cover" loading="lazy" />
+        </div>
+        <div class="grid grid-cols-1 gap-px bg-obsidian-line sm:grid-cols-2">
+          {[1, 3, 4, 5].map((n) => (
+            <div class="img-zoom relative aspect-square bg-obsidian" data-reveal>
+              <img src={withBase(`/img/gallery/kitchen/full/${n}.webp`)} alt="Кухня «Лесной Заимки»" class="h-full w-full object-cover" loading="lazy" />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="mt-px grid gap-px bg-obsidian-line sm:grid-cols-2 lg:grid-cols-4">
+        {signatureDishes.map((dish, i) => (
+          <div class="bg-obsidian p-7" data-reveal data-reveal-delay={String(Math.min(i, 3))}>
+            <p class="font-display text-lg leading-snug text-ivory">{dish.name}</p>
+            <p class="mt-4 font-mono text-sm text-brass">от {dish.price.toLocaleString("ru-RU")} ₽</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- HOUSE / HISTORY TEASER -->
+  <section class="border-y border-obsidian-line bg-obsidian-soft px-6 py-28 md:px-10">
+    <div class="mx-auto grid max-w-[1400px] items-center gap-16 md:grid-cols-2">
+      <div class="relative aspect-[4/5] overflow-hidden bg-obsidian" data-reveal>
+        <LivingPhotograph
+          client:visible
+          foreground={withBase("/img/gallery/interiors/full/3.webp")}
+          background={withBase("/img/gallery/interiors/full/7.webp")}
+          alt="Интерьеры терема 1974 года"
+          className="h-full w-full"
+        />
+      </div>
+      <div>
+        <p class="eyebrow mb-4" data-reveal>Дом · {y1974.year}</p>
+        <h2 class="font-display mb-6 text-4xl font-light text-ivory md:text-5xl" data-reveal>{y1974.title}</h2>
+        <p class="max-w-md text-base leading-relaxed text-ivory-dim" data-reveal data-reveal-delay="1">
+          {y1974.body}
+        </p>
+        <a href={withBase("/istoriya/")} class="btn-outline mt-10 inline-flex" data-reveal data-reveal-delay="2">
+          <span>Вся история заимки</span>
+          <Icon name="arrow" class="h-3.5 w-3.5" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- GUESTS -->
+  <section class="bg-obsidian px-6 py-28 md:px-10">
+    <div class="mx-auto max-w-[1400px]">
+      <p class="eyebrow mb-14 text-center" data-reveal>Гости у огня</p>
+      <div class="grid gap-14 md:grid-cols-2">
+        <blockquote class="border-l border-brass pl-8" data-reveal>
+          <p class="font-display text-xl font-light italic leading-relaxed text-ivory md:text-2xl">
+            «{OWNER_QUOTE.text}»
+          </p>
+          <footer class="eyebrow mt-6 not-italic">{OWNER_QUOTE.author} — {OWNER_QUOTE.role}</footer>
+        </blockquote>
+        <blockquote class="border-l border-obsidian-line pl-8" data-reveal data-reveal-delay="1">
+          <p class="font-display text-xl font-light italic leading-relaxed text-ivory md:text-2xl">
+            «{GUEST_QUOTES[0].text}»
+          </p>
+          <footer class="eyebrow mt-6 not-italic text-ivory-dim">{GUEST_QUOTES[0].author} — {GUEST_QUOTES[0].role}</footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- CIRCLE WIDENS -->
+  <section class="border-t border-obsidian-line bg-obsidian px-6 py-28 md:px-10">
+    <div class="mx-auto max-w-[1400px]">
+      <div class="mb-14 flex flex-wrap items-end justify-between gap-6">
+        <div data-reveal>
+          <p class="eyebrow mb-4">Круг шире</p>
+          <h2 class="font-display text-4xl font-light text-ivory md:text-5xl">Свадьбы, банкеты, праздники</h2>
+        </div>
+        <a href={withBase("/zaly/")} class="btn-outline shrink-0" data-reveal>
+          <span>Шесть залов до 500 гостей</span>
+          <Icon name="arrow" class="h-3.5 w-3.5" />
+        </a>
+      </div>
+      <div class="grid grid-cols-2 gap-px overflow-hidden bg-obsidian-line md:grid-cols-4">
+        {[
+          { img: "/img/gallery/wedding/full/3.webp", label: "Свадьбы" },
+          { img: "/img/gallery/corporate/full/5.webp", label: "Корпоративы" },
+          { img: "/img/gallery/holidays/full/6.webp", label: "Праздники" },
+          { img: "/img/gallery/children/full/2.webp", label: "Детский уголок" },
+        ].map((item, i) => (
+          <a href={withBase("/galereya/")} class="img-zoom group relative aspect-[3/4] bg-obsidian" data-reveal data-reveal-delay={String(i % 4)}>
+            <img src={withBase(item.img)} alt={item.label} class="h-full w-full object-cover" loading="lazy" />
+            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-obsidian/90 via-transparent to-transparent"></div>
+            <p class="eyebrow absolute bottom-5 left-5 text-ivory">{item.label}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="relative overflow-hidden bg-obsidian-soft px-6 py-32 text-center md:px-10">
+    <div class="grain absolute inset-0"></div>
+    <div class="relative mx-auto max-w-2xl">
+      <p class="eyebrow mb-6" data-reveal>Ваш вечер у огня</p>
+      <h2 class="font-display mb-10 text-4xl font-light text-ivory md:text-6xl" data-reveal>
+        Стол у&nbsp;огня <span class="text-brass italic">ждёт вас</span>
+      </h2>
+      <div class="flex flex-wrap items-center justify-center gap-5" data-reveal data-reveal-delay="1">
+        <a href={CONTACTS.phoneTableHref} class="btn-brass"><span>{CONTACTS.phoneTable}</span></a>
+        <a href={withBase("/kontakty/")} class="btn-outline"><span>Все контакты</span></a>
+      </div>
+    </div>
+  </section>
+</Layout>

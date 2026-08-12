@@ -1,0 +1,86 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Icon from "@/components/Icon.astro";
+import { ZAIMKA_GALLERY } from "@/data/gallery";
+import { withBase } from "@/lib/url";
+---
+
+<Layout
+  title="Галерея — Лесная Заимка"
+  description="Фотогалерея ресторанного комплекса «Лесная Заимка»: интерьеры, кухня, ферма, свадьбы, корпоративы, праздники, детский уголок."
+>
+  <section class="relative flex h-[56vh] min-h-[420px] items-end overflow-hidden bg-obsidian">
+    <img src={withBase("/img/gallery/wedding/full/9.webp")} alt="Галерея «Лесной Заимки»" class="ken-burns absolute inset-0 h-full w-full object-cover opacity-60" />
+    <div class="pointer-events-none absolute inset-0" style="background: linear-gradient(to top, rgba(10,9,8,1) 0%, rgba(10,9,8,0.5) 60%, rgba(10,9,8,0.55) 100%);"></div>
+    <div class="relative z-10 mx-auto w-full max-w-[1400px] px-6 pb-16 md:px-10">
+      <p class="eyebrow mb-5" data-reveal>Круг шире</p>
+      <h1 class="font-display text-5xl font-light text-ivory md:text-7xl" data-reveal>Галерея</h1>
+    </div>
+  </section>
+
+  {ZAIMKA_GALLERY.sections.map((section) => (
+    <section class="border-b border-obsidian-line bg-obsidian px-6 py-20 md:px-10">
+      <div class="mx-auto max-w-[1400px]">
+        <h2 class="font-display mb-10 text-3xl font-light text-ivory md:text-4xl" data-reveal>{section.name}</h2>
+        <div class="grid grid-cols-2 gap-px overflow-hidden bg-obsidian-line sm:grid-cols-3 lg:grid-cols-4">
+          {section.images.map((img, i) => (
+            <button
+              type="button"
+              class="lightbox-trigger img-zoom relative aspect-square bg-obsidian"
+              data-full={withBase(img.full)}
+              data-reveal
+              data-reveal-delay={String(i % 4)}
+            >
+              <img src={withBase(img.thumb)} alt={section.name} class="h-full w-full object-cover" loading="lazy" />
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- LIGHTBOX -->
+  <div
+    id="lightbox"
+    class="fixed inset-0 z-[100] hidden items-center justify-center bg-obsidian/97 p-6 backdrop-blur-sm"
+  >
+    <button id="lightbox-close" type="button" aria-label="Закрыть" class="absolute right-6 top-6 text-ivory">
+      <Icon name="close" class="h-6 w-6" />
+    </button>
+    <img id="lightbox-img" src="" alt="" class="max-h-[88vh] max-w-[92vw] object-contain" />
+  </div>
+</Layout>
+
+<script>
+  const triggers = document.querySelectorAll(".lightbox-trigger");
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+  const closeBtn = document.getElementById("lightbox-close");
+
+  function open(src) {
+    if (!lightbox || !lightboxImg) return;
+    lightboxImg.src = src;
+    lightbox.classList.remove("hidden");
+    lightbox.classList.add("flex");
+    document.body.style.overflow = "hidden";
+  }
+  function close() {
+    lightbox?.classList.add("hidden");
+    lightbox?.classList.remove("flex");
+    document.body.style.overflow = "";
+  }
+
+  triggers.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const full = btn.getAttribute("data-full");
+      if (full) open(full);
+    });
+  });
+  closeBtn?.addEventListener("click", close);
+  lightbox?.addEventListener("click", (e) => {
+    if (e.target === lightbox) close();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") close();
+  });
+</script>

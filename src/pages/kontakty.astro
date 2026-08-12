@@ -1,0 +1,79 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Icon from "@/components/Icon.astro";
+import ReserveForm from "@/components/ReserveForm";
+import { CONTACTS } from "@/data/contacts";
+import { withBase } from "@/lib/url";
+
+const mapSrc = `https://yandex.ru/map-widget/v1/?ll=${CONTACTS.lon}%2C${CONTACTS.lat}&z=16&pt=${CONTACTS.lon},${CONTACTS.lat},pm2rdm`;
+---
+
+<Layout
+  title="Контакты — Лесная Заимка"
+  description="Контакты ресторанного комплекса «Лесная Заимка» во Владивостоке: адрес, телефоны, часы работы, бронирование столика и залов."
+>
+  <section class="relative flex h-[48vh] min-h-[360px] items-end overflow-hidden bg-obsidian">
+    <img src={withBase("/img/gallery/interiors/full/1.webp")} alt="«Лесная Заимка»" class="ken-burns absolute inset-0 h-full w-full object-cover opacity-55" />
+    <div class="pointer-events-none absolute inset-0" style="background: linear-gradient(to top, rgba(10,9,8,1) 0%, rgba(10,9,8,0.5) 60%, rgba(10,9,8,0.55) 100%);"></div>
+    <div class="relative z-10 mx-auto w-full max-w-[1400px] px-6 pb-16 md:px-10">
+      <p class="eyebrow mb-5" data-reveal>Ваш вечер у огня</p>
+      <h1 class="font-display text-5xl font-light text-ivory md:text-7xl" data-reveal>Контакты</h1>
+    </div>
+  </section>
+
+  <section class="bg-obsidian px-6 py-24 md:px-10">
+    <div class="mx-auto grid max-w-[1400px] gap-16 lg:grid-cols-[1fr_1fr]">
+      <div>
+        <div class="space-y-8">
+          <div class="flex items-start gap-4" data-reveal>
+            <Icon name="pin" class="mt-1 h-5 w-5 shrink-0 text-brass" />
+            <div>
+              <p class="eyebrow mb-2">Адрес</p>
+              <p class="text-lg text-ivory">{CONTACTS.address}</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4" data-reveal data-reveal-delay="1">
+            <Icon name="clock" class="mt-1 h-5 w-5 shrink-0 text-brass" />
+            <div>
+              <p class="eyebrow mb-2">Часы работы</p>
+              <p class="text-lg text-ivory">{CONTACTS.hours}</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4" data-reveal data-reveal-delay="2">
+            <Icon name="phone" class="mt-1 h-5 w-5 shrink-0 text-brass" />
+            <div>
+              <p class="eyebrow mb-2">Столик</p>
+              <a href={CONTACTS.phoneTableHref} class="text-lg text-ivory hover:text-brass-bright">{CONTACTS.phoneTable}</a>
+              <a href={CONTACTS.whatsapp} class="mt-1 flex items-center gap-2 text-sm text-ivory-dim hover:text-brass-bright">
+                <Icon name="whatsapp" class="h-3.5 w-3.5" /> WhatsApp
+              </a>
+            </div>
+          </div>
+          <div class="flex items-start gap-4" data-reveal data-reveal-delay="3">
+            <Icon name="phone" class="mt-1 h-5 w-5 shrink-0 text-brass" />
+            <div>
+              <p class="eyebrow mb-2">Мероприятия и залы</p>
+              <a href={CONTACTS.phoneEventsHref} class="text-lg text-ivory hover:text-brass-bright">{CONTACTS.phoneEvents}</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-12 aspect-[4/3] overflow-hidden border border-obsidian-line" data-reveal>
+          <iframe
+            src={mapSrc}
+            width="100%"
+            height="100%"
+            loading="lazy"
+            title="Карта — Лесная Заимка"
+            style="border:0; filter: grayscale(0.3) invert(0.92) contrast(0.9);"
+          ></iframe>
+        </div>
+      </div>
+
+      <div data-reveal data-reveal-delay="1">
+        <p class="eyebrow mb-6">Бронирование столика</p>
+        <ReserveForm context="table" client:load />
+      </div>
+    </div>
+  </section>
+</Layout>

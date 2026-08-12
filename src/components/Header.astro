@@ -1,0 +1,105 @@
+---
+import Icon from "./Icon.astro";
+import { CONTACTS } from "@/data/contacts";
+import { withBase } from "@/lib/url";
+
+const nav = [
+  { href: "/", label: "Заимка" },
+  { href: "/menu/", label: "Меню" },
+  { href: "/zaly/", label: "Залы" },
+  { href: "/istoriya/", label: "История" },
+  { href: "/galereya/", label: "Галерея" },
+  { href: "/kontakty/", label: "Контакты" },
+];
+
+const path = Astro.url.pathname.replace(/\/index\.html$/, "/");
+---
+
+<header
+  id="site-header"
+  class="fixed inset-x-0 top-0 z-50 border-b border-transparent transition-colors duration-500"
+  data-header
+>
+  <div class="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-5 md:px-10">
+    <a href={withBase("/")} class="font-display text-lg tracking-wide text-ivory">
+      Лесная <em class="text-brass not-italic">Заимка</em>
+    </a>
+
+    <nav class="hidden items-center gap-9 lg:flex">
+      {nav.slice(1).map((item) => (
+        <a
+          href={withBase(item.href)}
+          class:list={[
+            "eyebrow transition-colors hover:text-brass-bright",
+            path === item.href ? "text-brass" : "text-ivory-dim",
+          ]}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="hidden items-center gap-6 lg:flex">
+      <a href={CONTACTS.phoneTableHref} class="eyebrow flex items-center gap-2 text-ivory hover:text-brass-bright">
+        <Icon name="phone" class="h-3.5 w-3.5" />
+        {CONTACTS.phoneTable}
+      </a>
+    </div>
+
+    <button
+      id="menu-toggle"
+      type="button"
+      aria-label="Открыть меню"
+      aria-expanded="false"
+      class="flex h-10 w-10 items-center justify-center text-ivory lg:hidden"
+    >
+      <Icon name="menu" class="h-5 w-5" />
+    </button>
+  </div>
+
+  <div
+    id="mobile-menu"
+    class="fixed inset-0 z-40 hidden flex-col justify-center gap-8 bg-obsidian px-8 lg:hidden"
+  >
+    {nav.map((item) => (
+      <a href={withBase(item.href)} class="font-display text-3xl text-ivory">
+        {item.label}
+      </a>
+    ))}
+    <a href={CONTACTS.phoneTableHref} class="eyebrow mt-4 text-brass">{CONTACTS.phoneTable}</a>
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector<HTMLElement>("[data-header]");
+  const toggle = document.getElementById("menu-toggle");
+  const mobileMenu = document.getElementById("mobile-menu");
+
+  const onScroll = () => {
+    if (!header) return;
+    if (window.scrollY > 40) {
+      header.classList.add("bg-obsidian/90", "backdrop-blur-md", "border-obsidian-line");
+    } else {
+      header.classList.remove("bg-obsidian/90", "backdrop-blur-md", "border-obsidian-line");
+    }
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  toggle?.addEventListener("click", () => {
+    const isOpen = mobileMenu?.classList.contains("flex");
+    mobileMenu?.classList.toggle("flex", !isOpen);
+    mobileMenu?.classList.toggle("hidden", isOpen);
+    toggle.setAttribute("aria-expanded", String(!isOpen));
+    document.body.style.overflow = isOpen ? "" : "hidden";
+  });
+
+  mobileMenu?.querySelectorAll("a").forEach((a) =>
+    a.addEventListener("click", () => {
+      mobileMenu.classList.remove("flex");
+      mobileMenu.classList.add("hidden");
+      toggle?.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+    })
+  );
+</script>

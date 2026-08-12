@@ -1,0 +1,12 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { withBase } from "@/lib/url";
+---
+
+<Layout title="Страница не найдена — Лесная Заимка" description="Страница не найдена.">
+  <section class="flex min-h-[80vh] flex-col items-center justify-center px-6 text-center">
+    <p class="eyebrow mb-6">404</p>
+    <h1 class="font-display mb-8 text-4xl font-light text-ivory md:text-6xl">Здесь огонь ещё не горел</h1>
+    <a href={withBase("/")} class="btn-brass"><span>Вернуться к заимке</span></a>
+  </section>
+</Layout>

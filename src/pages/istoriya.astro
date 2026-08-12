@@ -1,0 +1,60 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { HISTORY, OWNER_QUOTE, GUEST_QUOTES } from "@/data/history";
+import { withBase } from "@/lib/url";
+---
+
+<Layout
+  title="История — Лесная Заимка"
+  description="История ресторанного комплекса «Лесная Заимка» во Владивостоке: терем 1974 года, приём Форда и Брежнева, завтрак Ким Чен Ира, реконструкция 2012–2015."
+>
+  <section class="relative flex h-[56vh] min-h-[420px] items-end overflow-hidden bg-obsidian">
+    <img src={withBase("/img/gallery/interiors/full/7.webp")} alt="Терем «Лесной Заимки»" class="ken-burns absolute inset-0 h-full w-full object-cover opacity-60" />
+    <div class="pointer-events-none absolute inset-0" style="background: linear-gradient(to top, rgba(10,9,8,1) 0%, rgba(10,9,8,0.5) 60%, rgba(10,9,8,0.55) 100%);"></div>
+    <div class="relative z-10 mx-auto w-full max-w-[1400px] px-6 pb-16 md:px-10">
+      <p class="eyebrow mb-5" data-reveal>Гости у огня</p>
+      <h1 class="font-display text-5xl font-light text-ivory md:text-7xl" data-reveal>История заимки</h1>
+      <p class="mt-5 max-w-md text-sm text-ivory-dim" data-reveal data-reveal-delay="1">
+        Полвека огня — терем принимал первых лиц и продолжает принимать гостей каждый вечер.
+      </p>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="bg-obsidian px-6 py-24 md:px-10">
+    <div class="mx-auto max-w-[900px]">
+      {HISTORY.map((entry, i) => (
+        <div class="grid grid-cols-[auto_1fr] gap-x-8 border-b border-obsidian-line py-12 first:pt-0 last:border-0 sm:grid-cols-[140px_1fr]" data-reveal>
+          <p class="font-display text-3xl font-light text-brass sm:text-4xl">{entry.year}</p>
+          <div>
+            <h2 class="font-display text-2xl font-light text-ivory md:text-3xl">{entry.title}</h2>
+            <p class="mt-4 max-w-xl text-sm leading-relaxed text-ivory-dim md:text-base">{entry.body}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- OWNER QUOTE -->
+  <section class="border-y border-obsidian-line bg-obsidian-soft px-6 py-28 md:px-10">
+    <div class="mx-auto max-w-3xl text-center" data-reveal>
+      <p class="font-display text-2xl font-light italic leading-relaxed text-ivory md:text-4xl">
+        «{OWNER_QUOTE.text}»
+      </p>
+      <p class="eyebrow mt-8 not-italic">{OWNER_QUOTE.author}</p>
+      <p class="mt-2 text-sm text-ivory-dim">{OWNER_QUOTE.role}</p>
+    </div>
+  </section>
+
+  <!-- GUEST QUOTES -->
+  <section class="bg-obsidian px-6 py-24 md:px-10">
+    <div class="mx-auto grid max-w-[1400px] gap-14 md:grid-cols-2">
+      {GUEST_QUOTES.map((q, i) => (
+        <blockquote class="border-l border-obsidian-line pl-8" data-reveal data-reveal-delay={String(i % 2)}>
+          <p class="font-display text-xl font-light italic leading-relaxed text-ivory md:text-2xl">«{q.text}»</p>
+          <footer class="eyebrow mt-6 not-italic text-ivory-dim">{q.author} — {q.role}</footer>
+        </blockquote>
+      ))}
+    </div>
+  </section>
+</Layout>

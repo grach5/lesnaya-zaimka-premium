@@ -1,0 +1,56 @@
+---
+import Icon from "./Icon.astro";
+import { CONTACTS } from "@/data/contacts";
+import { withBase } from "@/lib/url";
+---
+
+<footer class="border-t border-obsidian-line bg-obsidian px-6 pb-10 pt-20 md:px-10">
+  <div class="mx-auto grid max-w-[1400px] gap-14 md:grid-cols-[1.3fr_1fr_1fr]">
+    <div>
+      <p class="font-display text-2xl text-ivory">
+        Лесная <em class="text-brass not-italic">Заимка</em>
+      </p>
+      <p class="mt-5 max-w-sm text-sm leading-relaxed text-ivory-dim">
+        Ресторанный комплекс во Владивостоке. Терем 1974 года, огонь тандыра и мангала,
+        своя ферма и шесть залов для торжеств любого масштаба.
+      </p>
+    </div>
+
+    <div>
+      <p class="eyebrow mb-5">Навигация</p>
+      <ul class="space-y-3 text-sm text-ivory-dim">
+        <li><a href={withBase("/menu/")} class="hover:text-brass-bright">Меню</a></li>
+        <li><a href={withBase("/zaly/")} class="hover:text-brass-bright">Залы</a></li>
+        <li><a href={withBase("/istoriya/")} class="hover:text-brass-bright">История</a></li>
+        <li><a href={withBase("/galereya/")} class="hover:text-brass-bright">Галерея</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="eyebrow mb-5">Контакты</p>
+      <ul class="space-y-4 text-sm text-ivory-dim">
+        <li class="flex items-start gap-3">
+          <Icon name="pin" class="mt-0.5 h-4 w-4 shrink-0 text-brass" />
+          <span>{CONTACTS.address}</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <Icon name="clock" class="mt-0.5 h-4 w-4 shrink-0 text-brass" />
+          <span>{CONTACTS.hours}</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <Icon name="phone" class="mt-0.5 h-4 w-4 shrink-0 text-brass" />
+          <a href={CONTACTS.phoneTableHref} class="hover:text-brass-bright">{CONTACTS.phoneTable} — столик</a>
+        </li>
+        <li class="flex items-start gap-3">
+          <Icon name="phone" class="mt-0.5 h-4 w-4 shrink-0 text-brass" />
+          <a href={CONTACTS.phoneEventsHref} class="hover:text-brass-bright">{CONTACTS.phoneEvents} — мероприятия</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mx-auto mt-16 flex max-w-[1400px] flex-col gap-4 border-t border-obsidian-line pt-8 text-xs text-ivory-dim/70 md:flex-row md:items-center md:justify-between">
+    <p>© {new Date().getFullYear()} Лесная Заимка. Все права защищены.</p>
+    <p class="font-mono tracking-wide">Владивосток, ул. Маковского, 290</p>
+  </div>
+</footer>
