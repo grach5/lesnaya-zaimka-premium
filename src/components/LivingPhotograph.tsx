@@ -1,7 +1,7 @@
 import { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Image as DreiImage } from "@react-three/drei";
-import { EffectComposer, DepthOfField, Vignette, Noise } from "@react-three/postprocessing";
+import { EffectComposer, Vignette, Noise } from "@react-three/postprocessing";
 import type * as THREE from "three";
 
 type Props = {
@@ -71,7 +71,6 @@ export default function LivingPhotograph({ foreground, background, alt, classNam
       <Suspense fallback={null}>
         <Scene foreground={foreground} background={background} />
         <EffectComposer multisampling={0}>
-          <DepthOfField focusDistance={0} focalLength={0.012} bokehScale={3} height={480} />
           <Vignette eskil={false} offset={0.15} darkness={0.85} />
           <Noise opacity={0.035} />
         </EffectComposer>

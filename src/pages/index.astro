@@ -132,14 +132,24 @@ const signatureDishes = (gameCategory?.items ?? []).slice(0, 4);
   <!-- HOUSE / HISTORY TEASER -->
   <section class="border-y border-obsidian-line bg-obsidian-soft px-6 py-28 md:px-10">
     <div class="mx-auto grid max-w-[1400px] items-center gap-16 md:grid-cols-2">
-      <div class="relative aspect-[4/3] overflow-hidden bg-obsidian" data-reveal>
-        <LivingPhotograph
-          client:visible
-          foreground={withBase("/img/gallery/interiors/full/3.webp")}
-          background={withBase("/img/gallery/interiors/full/7.webp")}
-          alt="Интерьеры терема 1974 года"
-          className="h-full w-full object-cover"
-        />
+      <div class="grid grid-rows-[1.1fr_1fr] gap-px overflow-hidden bg-obsidian-line" data-reveal>
+        <div class="img-zoom relative aspect-[16/10] bg-obsidian">
+          <img
+            src={withBase("/img/hero-video-poster.webp")}
+            alt="Терем «Лесной Заимки» — вид снаружи"
+            class="h-full w-full object-cover"
+            loading="lazy"
+          />
+        </div>
+        <div class="relative aspect-[4/3] overflow-hidden bg-obsidian">
+          <LivingPhotograph
+            client:visible
+            foreground={withBase("/img/gallery/interiors/full/3.webp")}
+            background={withBase("/img/gallery/interiors/full/7.webp")}
+            alt="Интерьеры терема 1974 года"
+            className="h-full w-full object-cover"
+          />
+        </div>
       </div>
       <div>
         <p class="eyebrow mb-4" data-reveal>Дом · {y1974.year}</p>
