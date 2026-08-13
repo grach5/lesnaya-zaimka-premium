@@ -8,16 +8,16 @@ import { withBase } from "@/lib/url";
 
 <Layout
   title="Залы и мероприятия — Лесная Заимка"
-  description="Шесть залов «Лесной Заимки» во Владивостоке — от камерных банкетов на 30 человек до торжеств на 400 гостей. Свадьбы, корпоративы, банкеты, кейтеринг."
+  description="Шесть залов «Лесной Заимки» во Владивостоке — от камерных банкетов на 30 человек до торжеств на 500 гостей. Свадьбы, корпоративы, банкеты, кейтеринг."
 >
   <section class="relative flex h-[56vh] min-h-[420px] items-end overflow-hidden bg-obsidian">
-    <img src={withBase("/img/gallery/holidays/full/3.webp")} alt="Зал «Лесной Заимки»" class="ken-burns absolute inset-0 h-full w-full object-cover opacity-60" />
+    <img src={withBase("/img/gallery/corporate/full/9.webp")} alt="Большой зал «Лесной Заимки»" class="ken-burns absolute inset-0 h-full w-full object-cover opacity-60" />
     <div class="pointer-events-none absolute inset-0" style="background: linear-gradient(to top, rgba(10,9,8,1) 0%, rgba(10,9,8,0.5) 60%, rgba(10,9,8,0.55) 100%);"></div>
     <div class="relative z-10 mx-auto w-full max-w-[1400px] px-6 pb-16 md:px-10">
       <p class="eyebrow mb-5" data-reveal>Круг шире</p>
       <h1 class="font-display text-5xl font-light text-ivory md:text-7xl" data-reveal>Залы и мероприятия</h1>
       <p class="mt-5 max-w-md text-sm text-ivory-dim" data-reveal data-reveal-delay="1">
-        Шесть залов — от камерного вечера на тридцать человек до торжества на четыреста гостей.
+        Шесть залов — от камерного вечера на тридцать человек до торжества на пятьсот гостей.
       </p>
     </div>
   </section>
@@ -49,6 +49,7 @@ import { withBase } from "@/lib/url";
               <div class="mt-6 flex flex-wrap gap-x-8 gap-y-2 font-mono text-xs text-brass">
                 <span>{hall.capacity}</span>
                 {hall.area && <span>{hall.area}</span>}
+                <span class="text-ivory-dim">аренда по запросу</span>
               </div>
             </div>
           </div>

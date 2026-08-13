@@ -1,19 +1,41 @@
 import { useState, type FormEvent } from "react";
+import { CONTACTS } from "@/data/contacts";
+
+const TODAY = () => new Date().toISOString().split("T")[0];
 
 export default function ReserveForm({ context = "table" }: { context?: "table" | "event" }) {
   const [status, setStatus] = useState<"idle" | "sent">("idle");
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const name = data.get("name");
+    const phone = data.get("phone");
+    const date = data.get("date");
+    const guests = data.get("guests");
+    const comment = data.get("comment");
+
+    const lines = [
+      context === "table" ? "Заявка на бронь столика:" : "Заявка на мероприятие:",
+      `Имя: ${name}`,
+      `Телефон: ${phone}`,
+      `Дата: ${date}`,
+      `Гостей: ${guests}`,
+      comment ? `Комментарий: ${comment}` : null,
+    ].filter(Boolean);
+
+    const message = encodeURIComponent(lines.join("\n"));
+    window.open(`${CONTACTS.whatsapp}?text=${message}`, "_blank", "noopener,noreferrer");
     setStatus("sent");
   }
 
   if (status === "sent") {
     return (
       <div className="border border-obsidian-line px-8 py-10 text-center">
-        <p className="font-display text-2xl text-ivory">Заявка принята</p>
+        <p className="font-display text-2xl text-ivory">Заявка отправлена в WhatsApp</p>
         <p className="mt-3 text-sm text-ivory-dim">
-          Мы свяжемся с вами в ближайшее время, чтобы подтвердить {context === "table" ? "бронь столика" : "детали мероприятия"}.
+          Если чат не открылся автоматически, позвоните нам напрямую — мы свяжемся с вами, чтобы подтвердить{" "}
+          {context === "table" ? "бронь столика" : "детали мероприятия"}.
         </p>
       </div>
     );
@@ -38,6 +60,8 @@ export default function ReserveForm({ context = "table" }: { context?: "table" |
             required
             name="phone"
             type="tel"
+            pattern="^[+0-9()\s-]{10,18}$"
+            title="Введите номер телефона, например +7 (999) 123-45-67"
             className="border border-obsidian-line bg-transparent px-4 py-3 text-sm text-ivory outline-none transition-colors focus:border-brass"
             placeholder="+7"
           />
@@ -51,6 +75,7 @@ export default function ReserveForm({ context = "table" }: { context?: "table" |
             required
             name="date"
             type="date"
+            min={TODAY()}
             className="border border-obsidian-line bg-transparent px-4 py-3 text-sm text-ivory outline-none transition-colors focus:border-brass"
           />
         </label>

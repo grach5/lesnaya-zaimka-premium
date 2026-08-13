@@ -15,7 +15,7 @@ const signatureDishes = (gameCategory?.items ?? []).slice(0, 4);
 
 <Layout
   title="Лесная Заимка — ресторанный комплекс во Владивостоке с 1974 года"
-  description="«Лесная Заимка»: терем 1974 года, огонь тандыра и мангала, русская, охотничья, дальневосточная и кавказская кухня, своя ферма, шесть залов до 400 гостей."
+  description="«Лесная Заимка»: терем 1974 года, огонь тандыра и мангала, русская, охотничья, дальневосточная и кавказская кухня, своя ферма, шесть залов до 500 гостей."
 >
   <!-- HERO -->
   <section class="relative flex h-[100svh] min-h-[640px] w-full items-end overflow-hidden bg-obsidian" data-hero-anim>
@@ -135,7 +135,7 @@ const signatureDishes = (gameCategory?.items ?? []).slice(0, 4);
       <div class="grid grid-rows-[1.1fr_1fr] gap-px overflow-hidden bg-obsidian-line" data-reveal>
         <div class="img-zoom relative aspect-[16/10] bg-obsidian">
           <img
-            src={withBase("/img/hero-video-poster.webp")}
+            src={withBase("/img/exterior-terem.webp")}
             alt="Терем «Лесной Заимки» — вид снаружи"
             class="h-full w-full object-cover"
             loading="lazy"
@@ -195,16 +195,16 @@ const signatureDishes = (gameCategory?.items ?? []).slice(0, 4);
           <h2 class="font-display text-4xl font-light text-ivory md:text-5xl">Свадьбы, банкеты, торжества</h2>
         </div>
         <a href={withBase("/zaly/")} class="btn-outline shrink-0" data-reveal>
-          <span>Шесть залов до 400 гостей</span>
+          <span>Шесть залов до 500 гостей</span>
           <Icon name="arrow" class="h-3.5 w-3.5" />
         </a>
       </div>
       <div class="grid grid-cols-2 gap-px overflow-hidden bg-obsidian-line md:grid-cols-4">
         {[
           { img: "/img/gallery/wedding/full/3.webp", label: "Свадьбы" },
-          { img: "/img/gallery/corporate/full/5.webp", label: "Корпоративы" },
+          { img: "/img/gallery/corporate/full/19.webp", label: "Корпоративы" },
           { img: "/img/gallery/holidays/full/6.webp", label: "Праздники" },
-          { img: "/img/gallery/children/full/2.webp", label: "Детский уголок" },
+          { img: "/img/gallery/children/full/1.webp", label: "Детский уголок" },
         ].map((item, i) => (
           <a href={withBase("/galereya/")} class="img-zoom group relative aspect-square bg-obsidian" data-reveal data-reveal-delay={String(i % 4)}>
             <img src={withBase(item.img)} alt={item.label} class="h-full w-full object-cover" loading="lazy" />

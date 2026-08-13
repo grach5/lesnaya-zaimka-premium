@@ -56,6 +56,13 @@ const mapSrc = `https://yandex.ru/map-widget/v1/?ll=${CONTACTS.lon}%2C${CONTACTS
               <a href={CONTACTS.phoneEventsHref} class="text-lg text-ivory hover:text-brass-bright">{CONTACTS.phoneEvents}</a>
             </div>
           </div>
+          <div class="flex items-start gap-4" data-reveal data-reveal-delay="4">
+            <Icon name="phone" class="mt-1 h-5 w-5 shrink-0 text-brass" />
+            <div>
+              <p class="eyebrow mb-2">Общий контакт</p>
+              <a href={CONTACTS.phoneMobileHref} class="text-lg text-ivory hover:text-brass-bright">{CONTACTS.phoneMobile}</a>
+            </div>
+          </div>
         </div>
 
         <div class="mt-12 aspect-[4/3] overflow-hidden border border-obsidian-line" data-reveal>
